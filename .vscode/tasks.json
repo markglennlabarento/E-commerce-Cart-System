@@ -1,0 +1,33 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "build cart",
+            "type": "shell",
+            "command": "g++ -g -std=c++17 -Wall -Wextra -I include @(Get-ChildItem -Recurse -Filter *.cpp src | ForEach-Object FullName) -o cart_demo.exe",
+            "options": {
+                "cwd": "${workspaceFolder}",
+                "env": {
+                    "PATH": "C:\\msys64\\ucrt64\\bin;${env:PATH}"
+                }
+            },
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "problemMatcher": ["$gcc"],
+            "detail": "Build E-commerce Cart System with MSYS2 g++"
+        },
+        {
+            "label": "run cart (external terminal)",
+            "type": "shell",
+            "command": "Start-Process -FilePath cmd.exe -ArgumentList '/k','cart_demo.exe' -WorkingDirectory '${workspaceFolder}'",
+            "options": {
+                "cwd": "${workspaceFolder}"
+            },
+            "dependsOn": "build cart",
+            "problemMatcher": [],
+            "detail": "Open the cart app in a new Windows terminal"
+        }
+    ]
+}
